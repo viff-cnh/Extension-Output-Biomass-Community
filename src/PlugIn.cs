@@ -63,7 +63,33 @@ namespace Landis.Extension.Output.BiomassCommunity
 
         public override void Run()
         {
-            CreateCommunityMap();
+            // Create community Dictionary
+            //      * First, summarize every community to nearest 25 g Biomass
+            //      * Assign to a Dictionary
+            //      * Each Dictionary entry has a unique ID
+            //      * The cell is assigned that ID
+            //      * If a community matches one from earlier in the list, give previous ID
+            //      * Output text file matching input from Landis.Library.Succession-vAGBinput.dll (AGB input branch in repo)
+            //CreateCommunityMap();
+            //      * Map is of the cell ID (int)
+
+            foreach(ActiveSite site in PlugIn.ModelCore.Landscape)
+            {
+                foreach(ISpeciesCohorts species_cohort in SiteVars.Cohorts[site])
+                { 
+                    foreach(ICohort cohort in species_cohort)
+                    {
+                        //      * First, summarize every community to nearest 25 g Biomass
+
+                    }
+                }
+                //      * Assign to a Dictionary
+                //      * Each Dictionary entry has a unique ID
+                //      * The cell is assigned that ID
+                //      * If a community matches one from earlier in the list, give previous ID
+                //      * Output text file matching input from Landis.Library.Succession-vAGBinput.dll (AGB input branch in repo)
+
+            }
         }
 
         //---------------------------------------------------------------------

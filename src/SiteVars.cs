@@ -14,6 +14,7 @@ namespace Landis.Extension.Output.BiomassCommunity
     public static class SiteVars
     {
         private static ISiteVar<ISiteCohorts> cohorts;
+        public static ISiteVar<int> MapCode;
 
 
         //---------------------------------------------------------------------
@@ -25,6 +26,7 @@ namespace Landis.Extension.Output.BiomassCommunity
         {
 
             cohorts = PlugIn.ModelCore.GetSiteVar<ISiteCohorts>("Succession.BiomassCohorts");
+            MapCode = PlugIn.ModelCore.Landscape.NewSiteVar<int>();
 
             if (cohorts == null)
             {
