@@ -22,6 +22,7 @@ namespace Landis.Extension.Output.BiomassCommunity
         private IInputParameters parameters;
         private static ICore modelCore;
         private string outputMapName = "output-community-{timestep}.img";
+        public static StreamWriter CommunityLog;
 
         //---------------------------------------------------------------------
 
@@ -57,6 +58,7 @@ namespace Landis.Extension.Output.BiomassCommunity
             MetadataHandler.Initialize(Timestep, outputMapName);
 
             SiteVars.Initialize();
+
         }
 
         //---------------------------------------------------------------------
@@ -73,25 +75,67 @@ namespace Landis.Extension.Output.BiomassCommunity
             //CreateCommunityMap();
             //      * Map is of the cell ID (int)
 
+            InitializeLogCommunity();
+
+            int mapCode = 1;
+
             foreach(ActiveSite site in PlugIn.ModelCore.Landscape)
             {
+                CommunityLog.WriteLine("MapCode {0}", mapCode);
+                SiteVars.MapCode[site] = mapCode; 
+                
                 foreach(ISpeciesCohorts species_cohort in SiteVars.Cohorts[site])
                 { 
+                    CommunityLog.Write("{0} ", species_cohort.Species.Name);
                     foreach(ICohort cohort in species_cohort)
                     {
-                        //      * First, summarize every community to nearest 25 g Biomass
-
+                        //      * SAVE FOR LATER, summarize every community to nearest 25 g Biomass
+                        CommunityLog.Write("{0} ({1}) ", cohort.Age, cohort.Biomass);
                     }
+                    CommunityLog.WriteLine();
                 }
                 //      * Assign to a Dictionary
                 //      * Each Dictionary entry has a unique ID
                 //      * The cell is assigned that ID
                 //      * If a community matches one from earlier in the list, give previous ID
                 //      * Output text file matching input from Landis.Library.Succession-vAGBinput.dll (AGB input branch in repo)
+                mapCode++;
 
             }
         }
+        //---------------------------------------------------------------------
 
+        private void InitializeLogCommunity()
+        {
+            string logFileName = string.Format("output-community/community-input-file-{0}.csv", ModelCore.CurrentTime);
+            PlugIn.ModelCore.UI.WriteLine("   Opening community log file \"{0}\" ...", logFileName);
+            try
+            {
+                CommunityLog = new StreamWriter(logFileName);
+            }
+            catch (Exception err)
+            {
+                string mesg = string.Format("{0}", err.Message);
+                throw new System.ApplicationException(mesg);
+            }
+
+            CommunityLog.AutoFlush = true;
+
+            //Mapcode 1-2 typically reserved for outside the universe, water, or other.
+            CommunityLog.WriteLine("LandisData \"Initial Communities\"");  
+            CommunityLog.WriteLine();
+            CommunityLog.WriteLine("MapCode 0");
+            CommunityLog.WriteLine();
+            CommunityLog.WriteLine("MapCode 1");
+            CommunityLog.WriteLine();
+            CommunityLog.WriteLine("MapCode 2");
+            CommunityLog.WriteLine();
+        }
+        //---------------------------------------------------------------------
+
+        private void LogCommunity()
+        {
+        }
         //---------------------------------------------------------------------
 
         private void CreateCommunityMap()
@@ -105,7 +149,7 @@ namespace Landis.Extension.Output.BiomassCommunity
                 foreach (Site site in PlugIn.ModelCore.Landscape.AllSites)
                 {
                     if (site.IsActive)
-                        pixel.MapCode.Value = 1; //(int) ListOfCommunities<>;
+                        pixel.MapCode.Value = SiteVars.MapCode[site];
                     else
                         pixel.MapCode.Value = 0;
 
