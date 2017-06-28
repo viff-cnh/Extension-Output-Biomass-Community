@@ -1,8 +1,8 @@
-#define PackageName      "Output Biomass"
-#define PackageNameLong  "Output Biomass"
-#define Version          "2.2"
+#define PackageName      "Output Biomass Community"
+#define PackageNameLong  "Output Biomass Community"
+#define Version          "1.0"
 #define ReleaseType      "official"
-#define ReleaseNumber    "2"
+#define ReleaseNumber    "1"
 
 #define CoreVersion      "6.0"
 #define CoreReleaseAbbr  ""
@@ -17,7 +17,7 @@
 [Files]
 ; This .dll IS the extension (ie, the extension's assembly)
 ; NB: Do not put a version number in the file name of this .dll
-Source: ..\..\src\bin\debug\Landis.Extension.Output.Biomass.dll; DestDir: {#ExtDir}; Flags: replacesameversion
+Source: ..\..\src\bin\debug\Landis.Extension.Output.BiomassCommunity.dll; DestDir: {#ExtDir}; Flags: replacesameversion
 
 
 ; Requisite auxiliary libraries
@@ -30,15 +30,16 @@ Source: ..\..\src\bin\Debug\Landis.Library.Metadata.dll; DestDir: {#ExtDir}; Fla
 
 
 ; Complete example for testing the extension
-Source: ..\examples\*.txt; DestDir: {#AppDir}\examples\Output Biomass; Flags: replacesameversion
-Source: ..\examples\*.gis; DestDir: {#AppDir}\examples\Output Biomass; Flags: replacesameversion
-Source: ..\examples\*.bat; DestDir: {#AppDir}\examples\Output Biomass; Flags: replacesameversion
-Source: ..\examples\*.csv; DestDir: {#AppDir}\examples\Output Biomass; Flags: replacesameversion
+; NEEDS REVISION
+; Source: ..\examples\*.txt; DestDir: {#AppDir}\examples\Output Biomass; Flags: replacesameversion
+; Source: ..\examples\*.gis; DestDir: {#AppDir}\examples\Output Biomass; Flags: replacesameversion
+; Source: ..\examples\*.bat; DestDir: {#AppDir}\examples\Output Biomass; Flags: replacesameversion
+; Source: ..\examples\*.csv; DestDir: {#AppDir}\examples\Output Biomass; Flags: replacesameversion
 
 
 ; LANDIS-II identifies the extension with the info in this .txt file
 ; NB. New releases must modify the name of this file and the info in it
-#define InfoTxt "Output Biomass 2.2.txt"
+#define InfoTxt "Output Biomass Community 1.0.txt"
 Source: {#InfoTxt}; DestDir: {#LandisPlugInDir}
 
 
@@ -47,7 +48,7 @@ Source: {#InfoTxt}; DestDir: {#LandisPlugInDir}
 #define PlugInAdminTool  CoreBinDir + "\Landis.PlugIns.Admin.exe"
 
 
-Filename: {#PlugInAdminTool}; Parameters: "remove ""Output Biomass"" "; WorkingDir: {#LandisPlugInDir}
+Filename: {#PlugInAdminTool}; Parameters: "remove ""Output Biomass Community"" "; WorkingDir: {#LandisPlugInDir}
 Filename: {#PlugInAdminTool}; Parameters: "add ""{#InfoTxt}"" "; WorkingDir: {#LandisPlugInDir}
 
 

@@ -1,0 +1,16 @@
+LandisData   
+Extension
+
+Name         "Output Biomass Community"
+
+Version      1.0
+
+Type         output
+
+Assembly     Landis.Extension.Output.BiomassCommunity
+
+Class        Landis.Extension.Output.BiomassCommunity.PlugIn
+
+Description  "Output maps of communities with biomass"
+
+CoreVersion  6.0
