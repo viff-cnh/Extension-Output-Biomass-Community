@@ -107,7 +107,7 @@ namespace Landis.Extension.Output.BiomassCommunity
 
         private void InitializeLogCommunity()
         {
-            string logFileName = string.Format("output-community/community-input-file-{0}.csv", ModelCore.CurrentTime);
+            string logFileName = string.Format(@"output-community\community-input-file-{0}.csv", ModelCore.CurrentTime);
             PlugIn.ModelCore.UI.WriteLine("   Opening community log file \"{0}\" ...", logFileName);
             try
             {
@@ -121,7 +121,7 @@ namespace Landis.Extension.Output.BiomassCommunity
 
             CommunityLog.AutoFlush = true;
 
-            //Mapcode 1-2 typically reserved for outside the universe, water, or other.
+            //Mapcode 0-2 typically reserved for outside the universe, water, or other.
             CommunityLog.WriteLine("LandisData \"Initial Communities\"");  
             CommunityLog.WriteLine();
             CommunityLog.WriteLine("MapCode 0");
