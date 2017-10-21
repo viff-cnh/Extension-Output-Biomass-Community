@@ -18,6 +18,7 @@
 ; This .dll IS the extension (ie, the extension's assembly)
 ; NB: Do not put a version number in the file name of this .dll
 Source: ..\..\src\bin\debug\Landis.Extension.Output.BiomassCommunity.dll; DestDir: {#ExtDir}; Flags: replacesameversion
+Source: ..\..\src\bin\debug\Landis.Extension.Output.BiomassCommunity.pdb; DestDir: {#ExtDir}; Flags: replacesameversion
 
 
 ; Requisite auxiliary libraries
