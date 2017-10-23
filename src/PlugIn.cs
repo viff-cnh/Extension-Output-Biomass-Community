@@ -77,7 +77,7 @@ namespace Landis.Extension.Output.BiomassCommunity
 
             InitializeLogCommunity();
 
-            int mapCode = 1;
+            int mapCode = 3;
 
             foreach(ActiveSite site in PlugIn.ModelCore.Landscape)
             {
