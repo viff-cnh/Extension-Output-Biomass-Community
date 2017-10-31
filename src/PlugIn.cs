@@ -23,7 +23,8 @@ namespace Landis.Extension.Output.BiomassCommunity
         private static ICore modelCore;
         //private string outputMapName = "output-communities\\output-community-{timestep}.img";
         private string outputMapName = "output-community-{timestep}.img";
-        public static StreamWriter CommunityLog;
+        public static StreamWriter CommunityLog; 
+        public static StreamWriter CommunityCsv;
 
         //---------------------------------------------------------------------
 
@@ -57,7 +58,6 @@ namespace Landis.Extension.Output.BiomassCommunity
 
             Timestep = parameters.Timestep;
             MetadataHandler.Initialize(Timestep, outputMapName);
-
             SiteVars.Initialize();
 
         }
@@ -76,19 +76,45 @@ namespace Landis.Extension.Output.BiomassCommunity
             //CreateCommunityMap();
             //      * Map is of the cell ID (int)
 
+            var initialMapCode = 3;
+            int mapCode;
+
+            // write to community csv
+            InitializeCsvCommunity();
+
+            mapCode = initialMapCode;
+
+            foreach (ActiveSite site in PlugIn.ModelCore.Landscape)
+            {
+                SiteVars.MapCode[site] = mapCode;
+
+                foreach (ISpeciesCohorts species_cohort in SiteVars.Cohorts[site])
+                {
+                    foreach (ICohort cohort in species_cohort)
+                    {
+                        CommunityCsv.WriteLine("{0},{1},{2},{3}", mapCode, species_cohort.Species.Name, cohort.Age, cohort.Biomass);
+                    }
+                }
+
+                ++mapCode;
+            }
+            
+            CommunityCsv.Close();
+
+            // write to community log
             InitializeLogCommunity();
 
-            int mapCode = 3;
+            mapCode = initialMapCode;
 
-            foreach(ActiveSite site in PlugIn.ModelCore.Landscape)
+            foreach (ActiveSite site in PlugIn.ModelCore.Landscape)
             {
                 CommunityLog.WriteLine("MapCode {0}", mapCode);
-                SiteVars.MapCode[site] = mapCode; 
-                
-                foreach(ISpeciesCohorts species_cohort in SiteVars.Cohorts[site])
-                { 
+                SiteVars.MapCode[site] = mapCode;
+
+                foreach (ISpeciesCohorts species_cohort in SiteVars.Cohorts[site])
+                {
                     CommunityLog.Write("{0} ", species_cohort.Species.Name);
-                    foreach(ICohort cohort in species_cohort)
+                    foreach (ICohort cohort in species_cohort)
                     {
                         //      * SAVE FOR LATER, summarize every community to nearest 25 g Biomass
                         CommunityLog.Write("{0} ({1}) ", cohort.Age, cohort.Biomass);
@@ -103,6 +129,8 @@ namespace Landis.Extension.Output.BiomassCommunity
                 mapCode++;
 
             }
+            
+            CommunityLog.Close();     
 
             CreateCommunityMap();
         }
@@ -113,18 +141,14 @@ namespace Landis.Extension.Output.BiomassCommunity
             //string logFileName = string.Format("output-communities\\community-input-file-{0}.txt", ModelCore.CurrentTime);
             string logFileName = string.Format("community-input-file-{0}.txt", ModelCore.CurrentTime);
             PlugIn.ModelCore.UI.WriteLine("   Opening community log file \"{0}\" ...", logFileName);
+
             try
             {
                 CommunityLog = new StreamWriter(logFileName);
-                PlugIn.ModelCore.UI.WriteLine("   Fail here in try");
             }
-
-     
             catch (Exception err)
             {
-                PlugIn.ModelCore.UI.WriteLine("   Fail here before catch");
                 string mesg = string.Format("{0}", err.Message);
-                PlugIn.ModelCore.UI.WriteLine("   Fail here in catch");
                 throw new System.ApplicationException(mesg);
             }
 
@@ -140,17 +164,41 @@ namespace Landis.Extension.Output.BiomassCommunity
             CommunityLog.WriteLine("MapCode 2");
             CommunityLog.WriteLine();
         }
+
+        private void InitializeCsvCommunity()
+        {
+            var csvFileName = string.Format("community-input-file-{0}.csv", ModelCore.CurrentTime);
+            PlugIn.ModelCore.UI.WriteLine("   Opening community csv file \"{0}\" ...", csvFileName);
+
+            try
+            {
+                CommunityCsv = new StreamWriter(csvFileName);  // JOHN- Is this wrong?
+            }
+            catch (Exception err)
+            {
+                string mesg = string.Format("{0}", err.Message);
+                throw new System.ApplicationException(mesg);
+            }
+
+            CommunityCsv.AutoFlush = true;
+
+            CommunityCsv.WriteLine("MapCode,SpeciesName,CohortAge,CohortBiomass");
+        }
+
         //---------------------------------------------------------------------
 
         private void LogCommunity()
         {
         }
-        //---------------------------------------------------------------------
+        
+                //---------------------------------------------------------------------
+
 
         private void CreateCommunityMap()
         {
             string path = MapNames.ReplaceTemplateVars(outputMapName, PlugIn.ModelCore.CurrentTime);
-            PlugIn.ModelCore.UI.WriteLine("   Writing community biomass map to {1} ...", path);
+            //PlugIn.ModelCore.UI.WriteLine("   Writing community biomass map to {1} ...", path);
+            PlugIn.ModelCore.UI.WriteLine("   Writing community biomass map to {0} ...", path);
 
             using (IOutputRaster<IntPixel> outputRaster = modelCore.CreateRaster<IntPixel>(path, modelCore.Landscape.Dimensions))
             {
