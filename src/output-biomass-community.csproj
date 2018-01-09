@@ -1,84 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{35088EC2-C1CD-4813-B8EE-F0B02B7679DB}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Landis.Extension.Output.BiomassCommunity</RootNamespace>
     <AssemblyName>Landis.Extension.Output.BiomassCommunity</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <AssemblyTitle>Landis.Extension.Output.BiomassCommunityCommunity</AssemblyTitle>
+    <AssemblyDescription>Output Biomass Community Extension</AssemblyDescription>
+    <AssemblyVersion>1.0</AssemblyVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\..\bin\Debug\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Edu.Wisc.Forest.Flel.Util" />
-    <Reference Include="Landis.Core" />
-    <Reference Include="Landis.Library.AgeOnlyCohorts" />
-    <Reference Include="Landis.Library.Biomass-v1" />
-    <Reference Include="Landis.Library.BiomassCohorts-v2" />
-    <Reference Include="Landis.Library.Cohorts" />
-    <Reference Include="Landis.Library.Metadata" />
-    <Reference Include="Landis.SpatialModeling" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="Edu.Wisc.Forest.Flel.Util">
+      <HintPath>..\lib\Edu.Wisc.Forest.Flel.Util.dll</HintPath>
+    </Reference>
+
+    <PackageReference Include="Landis.Core" Version="1.0.0-CI00001" />
+    <PackageReference Include="Landis.Library.AgeOnlyCohorts" Version="1.0.0-CI00001" />
+    <PackageReference Include="Landis.Library.Biomass-v1.0.1" Version="1.0.0-CI00002" />
+    <PackageReference Include="Landis.Library.BiomassCohorts-v2" Version="1.0.0-CI00007" />
+    <PackageReference Include="Landis.Library.Cohorts" Version="1.0.0-CI00001" />
+    <PackageReference Include="Landis.Library.Metadata" Version="1.0.0-CI00002" />
+    <PackageReference Include="Landis.SpatialModeling" Version="1.0.0-CI00001" />
+
+    <!-- <Reference Include="System" /> -->
+    <!-- <Reference Include="System.Core" /> -->
+    <!-- <Reference Include="System.Xml.Linq" /> -->
+    <!-- <Reference Include="System.Data.DataSetExtensions" /> -->
+    <!-- <Reference Include="System.Data" /> -->
+    <!-- <Reference Include="System.Xml" /> -->
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="IInputParameters.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="InputParameters.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="InputParametersParser.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MetadataHandler.cs" />
-    <Compile Include="PlugIn.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="SiteVars.cs" />
-    <Compile Include="IntPixel.cs" />
-    <Compile Include="MapNames.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>call $(SolutionDir)\install-libs.cmd</PreBuildEvent>
-  </PropertyGroup>
-  <!--
-   To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
