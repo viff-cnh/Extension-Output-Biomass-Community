@@ -15,7 +15,6 @@
 
     <PackageReference Include="Landis.Core" Version="1.0.0-CI00001" />
     <PackageReference Include="Landis.Library.AgeOnlyCohorts" Version="1.0.0-CI00001" />
-    <PackageReference Include="Landis.Library.Biomass-v1.0.1" Version="1.0.0-CI00002" />
     <PackageReference Include="Landis.Library.BiomassCohorts-v2" Version="1.0.0-CI00007" />
     <PackageReference Include="Landis.Library.Cohorts" Version="1.0.0-CI00001" />
     <PackageReference Include="Landis.Library.Metadata" Version="1.0.0-CI00002" />
@@ -27,6 +26,7 @@
     <!-- <Reference Include="System.Data.DataSetExtensions" /> -->
     <!-- <Reference Include="System.Data" /> -->
     <!-- <Reference Include="System.Xml" /> -->
+    <PackageReference Include="Landis.Library.Biomass-v1.0.1" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
