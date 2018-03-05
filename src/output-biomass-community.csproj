@@ -14,7 +14,7 @@
     </Reference>
 
     <PackageReference Include="Landis.Library.BiomassCohorts-v2" Version="1.0.0-CI00007" />
-    <PackageReference Include="Landis.Library.Biomass-v1.0.1" Version="1.0.0" />
+    <PackageReference Include="Landis.Library.Biomass-v1.0.1" Version="1.0.0-CI00005" />
     <PackageReference Include="Landis.SpatialModeling" Version="1.0.0-CI00003" />
     <PackageReference Include="Landis.Core" Version="1.0.0-CI00002" />
     <PackageReference Include="Landis.Library.AgeOnlyCohorts" Version="1.0.0-CI00003" />
